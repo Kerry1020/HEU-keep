@@ -169,10 +169,6 @@ def generate_track():
     all_x_rotated=np.concatenate([x_extra_line, all_x_rotated])
     all_y_rotated=np.concatenate([y_extra_line, all_y_rotated])
 
-    # 中心对称，50%的概率
-    if random.random() < 0.5:
-        all_y_rotated = [circle_center[1] - (y - circle_center[1]) for y in all_y_rotated]
-        all_x_rotated = [circle_center[0] - (x - circle_center[0]) for x in all_x_rotated]
 
 
 
