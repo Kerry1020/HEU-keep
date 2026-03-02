@@ -10,7 +10,7 @@ function generateLocalTrackData() {
     const R = 65 + (Math.random() * 10 - 5);    // 半径
     const LEN = 80 + (Math.random() * 20 - 10); // 直道长度
     const STEP = 5; // 步长，越小点越密
-    
+
     let points = [];
 
     // 2. 生成标准的操场跑道形状 (两段直道 + 两段半圆)
@@ -40,22 +40,22 @@ function generateLocalTrackData() {
     // 闭合路径
     points.push(points[0]);
 
-    // 3. 处理轨迹：旋转 + 噪点 (模拟真实 GPS 漂移)
-    const rotationAngle = (Math.random() * 360) * (Math.PI / 180); // 随机旋转角度
+    // 3. 处理轨迹：固定旋转 + 噪点 (确保与地图对齐)
+    const rotationAngle = 0; // 移除随机旋转，确保方向一致
     const cos = Math.cos(rotationAngle);
     const sin = Math.sin(rotationAngle);
 
     // 模拟进场和出场的多余线条 (让轨迹更真实，不完全闭合)
     const extraStartPoints = [];
     const extraEndPoints = [];
-    for(let i=0; i<5; i++) {
-        extraStartPoints.push({x: points[0].x - 10 + i*2, y: points[0].y - 10 + i*2});
-        extraEndPoints.push({x: points[points.length-1].x + i*2, y: points[points.length-1].y + i*2});
+    for (let i = 0; i < 5; i++) {
+        extraStartPoints.push({ x: points[0].x - 10 + i * 2, y: points[0].y - 10 + i * 2 });
+        extraEndPoints.push({ x: points[points.length - 1].x + i * 2, y: points[points.length - 1].y + i * 2 });
     }
-    
+
     // 合并所有点
     let finalPoints = [...extraStartPoints, ...points, ...extraEndPoints];
-    
+
     // 最终处理
     const resultData = finalPoints.map((p, index) => {
         // 3.1 旋转
@@ -64,7 +64,7 @@ function generateLocalTrackData() {
 
         // 3.2 添加噪点 (GPS 误差)
         // 直道误差小一点，弯道误差大一点
-        const noise = Math.random() * 2.5 - 1.25; 
+        const noise = Math.random() * 2.5 - 1.25;
         rx += noise;
         ry += noise;
 
@@ -74,17 +74,8 @@ function generateLocalTrackData() {
             y: ry
         };
     });
-    
-    // 偶尔反转轨迹方向 (模拟顺时针或逆时针跑)
-    if(Math.random() > 0.5) {
-        // 保持 action 逻辑: 第一个必须是 down
-        const reversedCoords = resultData.map(p => ({x: p.x, y: p.y})).reverse();
-        return reversedCoords.map((p, index) => ({
-            action: index === 0 ? 'down' : 'move',
-            x: p.x,
-            y: p.y
-        }));
-    }
+
+    return resultData;
 
     return resultData;
 }

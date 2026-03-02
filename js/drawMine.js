@@ -108,14 +108,6 @@ function generateLocalTrackData() {
         };
     });
 
-    // 50% 概率反向跑 (中心对称)
-    if (Math.random() < 0.5) {
-        resultData.forEach(p => {
-            p.x = BASE_CX - (p.x - BASE_CX);
-            p.y = BASE_CY - (p.y - BASE_CY);
-        });
-    }
-
     // 抬笔
     if(resultData.length > 0) {
         const last = resultData[resultData.length-1];
