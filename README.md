@@ -1,144 +1,52 @@
-# KEEPro 运动记录生成器 (HEU 定制版)
+# HEU-keep
 
-本项目是一个基于 Web 的高保真运动记录生成工具，旨在模拟“Keep”应用程序的跑步结算界面。项目包含前端交互界面与后端轨迹生成算法，支持用户自定义运动数据、通过算法生成拟真轨迹或手绘路径，并最终导出高分辨率图片。
+HEU-keep is a web-based high-fidelity workout record generator tailored for Harbin Engineering University (HEU). It recreates the visual style of Keep running result pages and supports custom workout data, realistic track generation, hand-drawn paths, local persistence, and high-resolution export.
 
-本版本（HEU版）在原项目基础上进行了针对哈尔滨工程大学（HEU）地图的适配，增加了 Python 后端算法生成、IndexedDB 本地存储优化及 UI 交互改进。
+## Project Positioning
 
-## 目录
+This version is packaged as a **backend generation + deployment focused portfolio project**.
 
-1.  功能特性
-2.  项目结构
-3.  技术架构
-4.  环境依赖与部署
-5.  核心模块详解
-6.  免责声明
+### Lingion's Main Contributions
+- Backend track-generation logic design
+- Python Flask API implementation for realistic running-track generation
+- Integration between front-end rendering and backend-generated轨迹 data
+- Deployment and runnable delivery setup
+- Project-level integration, systemization, and engineering packaging
 
----
+### Collaboration Split
+- **Lingion**: backend logic, deployment, integration, delivery
+- **Kerry1020**: frontend optimization, interaction polish, testing and verification
 
-## 1. 功能特性
+## Key Features
+- High-fidelity Keep-style result-card rendering
+- HEU map adaptation and multiple scene styles
+- Python backend API for track generation
+- Randomized ellipse / track simulation with GPS-like drift behavior
+- Manual track drawing support on the frontend
+- IndexedDB local persistence for user preferences
+- High-resolution export through off-screen cloning and html2canvas
 
-### 界面与交互
-*   **UI 还原**：严格遵循 Keep App 的设计规范，包括字体（DINCond-Bold）、字号、色彩、布局及阴影效果。提供标准版与 Liquid（流体/玻璃拟态）两种视觉主题。
-*   **实时预览**：左侧为所见即所得的预览区域，右侧为控制面板。输入数据变化时，预览区域实时更新。
-*   **移动端适配**：针对 iOS 和 Android 移动端浏览器进行了布局修复，包括输入框自适应宽度、下拉菜单样式修正等。
+## Tech Stack
+- HTML / CSS / JavaScript
+- Python
+- Flask + Flask-CORS
+- NumPy
+- Canvas / html2canvas
+- IndexedDB
 
-### 轨迹生成
-*   **算法生成 (后端)**：通过 Python 后端模拟真实的 400m 操场跑圈轨迹。算法包含随机扰动、椭圆拟合、旋转角度及进出场“多余线条”模拟，以接近真实的 GPS 漂移效果。
-*   **手绘轨迹 (前端)**：集成 HTML5 Canvas 画布，支持用户在地图底图上手动绘制任意路径。
-*   **预设与文件加载**：支持加载预设的 JSON 轨迹数据或上传自定义轨迹文件。
+## Engineering Highlights
+- Designed a backend API for structured track generation (`/generate-track`)
+- Combined algorithmic path generation with frontend rendering
+- Solved practical export issues with off-screen DOM cloning
+- Turned a visually oriented tool into a deliverable, runnable project
 
-### 数据管理
-*   **全面自定义**：支持修改用户名、头像、运动标题、里程、配速、时长、卡路里、日期时间、天气及温湿度。
-*   **随机波动**：里程和配速支持设置“随机范围”（最小值至最大值），便于生成非固定数值的记录。
-*   **本地持久化**：使用 IndexedDB 存储用户的配置信息（如头像、用户名、历史设置），确保页面刷新后数据不丢失。
+## Why This Project Matters
+This project demonstrates Lingion's ability to:
+- turn a UI tool into a full-stack deliverable
+- connect backend-generated data with a highly visual frontend
+- package and deploy a niche but concrete product scenario
+- describe technical work in terms of architecture, integration, and delivery
 
-### 导出功能
-*   **高清截图**：利用 `html2canvas` 将 DOM 节点渲染为图片。
-*   **离屏渲染优化**：采用离屏克隆（Off-screen Cloning）技术，在不可见区域重建 DOM 进行渲染，解决了导出时 CSS 变换、阴影丢失及背景透明等问题。
-
----
-
-## 2. 项目结构
-
-```text
-.
-├── css/
-│   ├── base.css           # 基础样式重置
-│   ├── liquid.css         # Liquid 主题样式（玻璃拟态、动态背景）
-│   └── styles.css         # 标准主题样式（扁平化设计）
-├── js/
-│   ├── invoke/
-│   │   ├── amapHelper.js  # 地图相关辅助函数
-│   │   └── html2canvas.min.js # 截图库
-│   ├── dataURLtoBlob.js   # 图片数据处理工具
-│   ├── download_img.js    # 图片导出逻辑
-│   ├── drawMine.js        # 随机轨迹绘制触发逻辑
-│   ├── draw_personalization.js # 手绘板相关逻辑
-│   ├── img_both_inpt_set.js # 图片上传与预览处理
-│   ├── indexedDB.js       # 本地数据库操作封装
-│   ├── init.js            # 初始化脚本
-│   ├── localTrackGen.js   # 前端本地轨迹生成逻辑
-│   ├── onload.js          # 页面加载完成后的入口函数
-│   ├── render.js          # 核心渲染逻辑（数据绑定至 DOM）
-│   └── select_manner.js   # 下拉菜单交互逻辑
-├── Json2Png.py            # 后端轨迹生成服务 (Flask)
-├── DINCond-Bold.otf       # 核心字体文件（数字显示）
-├── STKAITI.TTF            # 备用中文字体
-├── index.html             # 标准版入口文件
-├── liquid.html            # Liquid 主题版入口文件
-└── keep.html              # 旧版入口文件（保留兼容）
-```
-
----
-
-## 3. 技术架构
-
-### 前端
-*   **语言**：HTML5, CSS3, JavaScript (ES6+)。
-*   **存储**：IndexedDB (原生 API)。
-*   **核心库**：`html2canvas` (用于 DOM 转 Canvas)。
-*   **布局**：Flexbox 与 Grid 布局，配合 CSS 变量（CSS Variables）实现主题切换。
-
-### 后端
-*   **语言**：Python 3。
-*   **框架**：Flask (提供 `/generate-track` API 接口)。
-*   **科学计算**：NumPy (坐标矩阵运算), Matplotlib (虽然引入但主要用于逻辑验证，核心数据通过 JSON 返回)。
-
----
-
-## 4. 环境依赖与部署
-
-### 后端部署 (Python)
-用于提供算法生成的随机轨迹 API。如果不启动后端，前端仍可使用手绘和预设轨迹功能，但“自动生成”功能将不可用。
-
-1.  **安装依赖**：
-    ```bash
-    pip install numpy matplotlib flask flask_cors
-    ```
-2.  **启动服务**：
-    ```bash
-    python Json2Png.py
-    ```
-    服务默认运行在 `http://127.0.0.1:5000`。
-
-### 前端部署
-本项目为静态网页，可部署于任何 Web 服务器（Nginx, Apache, IIS）或本地开发环境。
-
-1.  将项目根目录放置于服务器的 Web 根目录下。
-2.  访问 `index.html` 或 `liquid.html`。
-3.  **注意**：如果后端部署在不同域名或端口，需确保 `Json2Png.py` 中已正确配置 CORS（跨域资源共享），并在前端 JS 文件中修改 API 请求地址指向正确的后端地址。
-
----
-
-## 5. 核心模块详解
-
-### 5.1 轨迹生成算法 (`Json2Png.py`)
-后端通过 `/generate-track` 接口返回 JSON 格式的坐标点序列。
-*   **逻辑流程**：
-    1.  定义椭圆参数（圆心、长轴、短轴、旋转角度）。
-    2.  将轨迹分为四段：上直线、右半圆、下直线、左半圆。
-    3.  使用 `numpy.arange` 生成基础点位。
-    4.  引入 `numpy.random.uniform` 对 Y 轴进行微小偏移，模拟 GPS 信号抖动。
-    5.  **额外线条模拟**：在随机位置生成“突刺”线条，模拟跑步开始或结束时进出操场的路径。
-    6.  **坐标变换**：应用旋转矩阵将标准椭圆旋转至指定角度，并平移至目标圆心。
-    7.  返回包含 `action` (down/move/up), `x`, `y` 的 JSON 数据。
-
-### 5.2 离屏渲染导出 (前端 HTML Script)
-为了解决 `html2canvas` 在处理 CSS 高级特性（如 `backdrop-filter`, `transform`, `box-shadow`）时的渲染缺陷，项目在 `index.html` / `liquid.html` 中重写了 `Download` 函数：
-1.  **创建幽灵容器**：在屏幕可视区域外创建一个 `div`。
-2.  **深度克隆**：将预览区域的 DOM 节点完整克隆到幽灵容器中。
-3.  **Canvas 重绘**：由于 `cloneNode` 无法克隆 Canvas 的绘制内容，脚本会遍历原节点中的所有 Canvas，利用 `drawImage` 手动将内容复制到克隆节点中。
-4.  **样式净化**：移除克隆节点中可能导致渲染偏移的 CSS 属性（如 `transform` 缩放）。
-5.  **执行渲染**：对净化后的克隆节点执行 `html2canvas`，生成最终图片。
-
-### 5.3 输入框自适应 (前端 HTML Script)
-为保证生成的图片排版美观，输入框采用了高性能的宽度自适应机制：
-*   创建一个离屏 Canvas (`measureCtx`) 用于测量文本宽度。
-*   监听输入框的 `input` 和 `focusout` 事件。
-*   使用 `requestAnimationFrame` 维护更新队列，避免频繁操作 DOM 导致的页面重排（Reflow），确保在低性能设备上的流畅度。
-
----
-
-## 6. 免责声明
-
-本工具仅供编程学习、前端布局研究及界面设计交流使用。**严禁用于伪造运动数据进行虚假打卡、欺骗行为或任何商业用途。** 使用本工具产生的任何后果由使用者自行承担。开发者不承担任何因使用本工具而导致的直接或间接责任。
+## Repository Notes
+This repository is presented from the **backend / deployment / integration** perspective.
+If you want the frontend / testing focused framing, see the corresponding Kerry-side project packaging.
