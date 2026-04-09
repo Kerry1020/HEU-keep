@@ -1,81 +1,63 @@
 # HEU-keep
 
-HEU-keep is the **main collaborative repository** for a Keep-style workout card generator adapted for **Harbin Engineering University (HEU)** scenarios.
+HEU-keep is a **Keep-style workout card generator** adapted for Harbin Engineering University (HEU).
 
-> **Primary repository:** `lingion/HEU-keep`
->
-> This repository is the only mainline source of truth for the project.
+> **Primary repository:** `lingion/HEU-keep`  
+> This is the only mainline source of truth for the project.
 
-## Overview
+## 🚀 Try Demo (P1)
 
-HEU-keep recreates the visual style of a Keep running summary page and turns it into a configurable web tool. Users can edit workout data, preview the generated result card in real time, draw or generate a running track, and export a high-resolution image.
+- **Cloudflare Pages (latest deployment):**  
+  https://master.heu-keep-demo.pages.dev
+- **Direct deployment URL:**  
+  https://36974885.heu-keep-demo.pages.dev
+- Entry pages:
+  - `/index.html` (classic)
+  - `/liquid.html` (liquid)
 
-The project combines:
-- a UI-heavy frontend focused on fidelity and export quality
-- a Python backend that generates realistic track data
-- integration work to connect generated data with the rendered workout card
-- collaborative maintenance across frontend, backend, and deployment responsibilities
+## 🖼️ Screenshots (P0)
 
-## Demo-Oriented Highlights
+### Classic UI
+![HEU-keep Classic Preview](docs/screenshots/preview-classic.jpg)
 
-- **High-fidelity UI recreation** of a Keep-style running summary card
-- **HEU-specific map adaptation** for local scene realism
-- **Real-time preview** while editing workout data
-- **Manual track drawing** with Canvas
-- **Backend-generated running tracks** with GPS-like drift simulation
-- **IndexedDB local persistence** for user settings and assets
-- **High-resolution export** through off-screen cloning and html2canvas optimization
+### Liquid UI
+![HEU-keep Liquid Preview](docs/screenshots/preview-liquid.jpg)
+
+## ✨ Highlights
+
+- High-fidelity Keep-style running summary UI
+- HEU map adaptation and scene customization
+- Real-time data editing + preview
+- Manual and generated running tracks
+- High-resolution export pipeline
+- IndexedDB local persistence
 
 ## Collaboration Split
 
 ### Kerry1020
 - frontend optimization
 - UI polish and interaction refinement
-- mobile adaptation and browser-side testing
-- export workflow verification
+- mobile adaptation and testing
 
 ### Lingion
-- backend logic and API design
-- Python Flask integration
+- backend logic and API integration
 - deployment and delivery
-- full-project integration and engineering packaging
+- full-project integration and packaging
 
 ## Tech Stack
 
-### Frontend
-- HTML5
-- CSS3
-- JavaScript (ES6+)
-- Canvas
-- IndexedDB
-- html2canvas
-
-### Backend
-- Python 3
-- Flask
-- Flask-CORS
-- NumPy
+- Frontend: HTML, CSS, JavaScript, Canvas, IndexedDB, html2canvas
+- Backend: Python, Flask, Flask-CORS, NumPy
+- Deployment: Cloudflare Pages (frontend demo), static hosting
 
 ## Repository Rule
 
-All meaningful project evolution should ultimately land in this repository.
-If a collaborator account maintains a presentation copy or mirror, that copy should not replace this repository as the project's mainline.
+All meaningful project evolution should ultimately land in this repository. Collaboration copies or presentation mirrors should not replace this repo as the mainline.
 
-## Why This Project Matters
+## Docs
 
-This project demonstrates the ability to:
-- optimize a visually demanding frontend rather than only build a basic CRUD page
-- integrate generated backend data into a highly visual product flow
-- solve export-quality and rendering issues in browser-based generators
-- maintain a collaborative full-stack project with clear ownership boundaries
-
-## Project Documents
-
-- `ARCHITECTURE.md` — system structure and module responsibilities
-- `DEPLOYMENT.md` — how to run frontend and backend
+- `ARCHITECTURE.md` — architecture and module responsibilities
+- `DEPLOYMENT.md` — local run + deployment notes
 - `RESUME_BULLETS.md` — resume-ready project descriptions
-- `TEAM_SPLIT.md` — collaboration role split
-
-## Notes
-
-If another repository under a collaborator account exists, treat it as a collaboration-facing or presentation-oriented copy. The integrated project state belongs here.
+- `TEAM_SPLIT.md` — role split
+- `MAIN_REPOSITORY_SCOPE.md` — main repository rule
