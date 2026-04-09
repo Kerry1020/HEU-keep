@@ -2,23 +2,23 @@
 
 HEU-keep is the **main collaborative repository** for a Keep-style workout card generator adapted for Harbin Engineering University (HEU).
 
-This project combines:
-- a high-fidelity frontend that recreates the Keep running summary UI
-- local editing, preview, export, and track drawing tools
-- a Python backend for realistic running-track generation
-- project integration, packaging, and deployment work
+> **Primary repository:** `lingion/HEU-keep`
+>
+> This is the only repository that should be treated as the project's mainline source of truth.
 
-## Repository Role
-
-This repository is the **primary source of truth** for the project.
-All substantial code evolution should ultimately land here.
+## What the Project Does
+- recreates the visual style of Keep running result pages
+- supports workout data editing and real-time preview
+- supports manual drawing and generated running tracks
+- exports high-resolution workout summary images
+- combines frontend rendering with backend-generated track data
 
 ## Collaboration Split
 
 ### Kerry1020
 - frontend optimization
-- interaction polish
-- UI refinement
+- UI polish
+- interaction refinement
 - testing and validation
 
 ### Lingion
@@ -27,12 +27,14 @@ All substantial code evolution should ultimately land here.
 - deployment and delivery
 - full-project integration and packaging
 
-## What the Project Demonstrates
-- UI-heavy front-end implementation and optimization
-- backend-generated track simulation
-- integration between generated path data and visual rendering
-- export-focused engineering for image generation tools
-- collaborative project maintenance under a shared main repository
+## Repository Rule
+All meaningful project evolution should ultimately land in this repository.
+If a collaborator account keeps a mirror or presentation copy, that copy should not replace this repository as the project's mainline.
 
-## Notes
-If another repository under a collaborator account exists, it should be treated as a presentation/mirror/collaboration-facing copy rather than the primary mainline.
+## Value of the Project
+This project demonstrates:
+- UI-heavy frontend implementation and optimization
+- backend track-generation logic
+- integration between generated data and visual rendering
+- export-focused engineering for content-generation tools
+- real collaboration around one shared main project
