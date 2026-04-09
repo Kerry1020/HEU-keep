@@ -39,3 +39,8 @@ It is **not** the canonical mainline project repository.
 
 For integrated project structure and backend/deployment context, use:
 - `lingion/HEU-keep`
+
+
+## Quick Demo
+- https://master.heu-keep-demo.pages.dev
+- Mainline repository: https://github.com/lingion/HEU-keep
