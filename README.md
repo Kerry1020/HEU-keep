@@ -12,6 +12,17 @@ HEU-keep is a Keep-style workout card generator adapted for Harbin Engineering U
 
 This copy highlights **Kerry's frontend-focused role** in the project.
 
+## Quick Demo
+- https://master.heu-keep-demo.pages.dev
+- Mainline repository: https://github.com/lingion/HEU-keep
+
+## Screenshots
+### Classic UI
+![HEU-keep Classic Preview](https://raw.githubusercontent.com/lingion/HEU-keep/master/docs/screenshots/preview-classic.jpg)
+
+### Liquid UI
+![HEU-keep Liquid Preview](https://raw.githubusercontent.com/lingion/HEU-keep/master/docs/screenshots/preview-liquid.jpg)
+
 ## Kerry's Focus in the Project
 
 - frontend optimization
@@ -19,14 +30,6 @@ This copy highlights **Kerry's frontend-focused role** in the project.
 - interaction refinement
 - mobile adaptation
 - testing and validation
-
-## Frontend-Focused Highlights
-
-- refined Keep-style visual presentation
-- improved input and preview workflow
-- mobile browser layout fixes
-- export-flow verification and UI-side bug fixing
-- better usability for a visually complex web tool
 
 ## Collaboration Context
 
@@ -36,11 +39,3 @@ Kerry contributes mainly from the frontend and testing side, but the shared proj
 
 This repository is useful for presentation, contribution framing, and portfolio context.
 It is **not** the canonical mainline project repository.
-
-For integrated project structure and backend/deployment context, use:
-- `lingion/HEU-keep`
-
-
-## Quick Demo
-- https://master.heu-keep-demo.pages.dev
-- Mainline repository: https://github.com/lingion/HEU-keep
